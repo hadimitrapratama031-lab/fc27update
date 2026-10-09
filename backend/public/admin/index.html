@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin FC27 Squad Update</title>
+  <link rel="icon" href="icon.png" type="image/png">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <div class="shade" aria-hidden="true"></div>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-mark" src="icon.png" alt="" width="44" height="44">
+        <div>
+          <h1>FC27 Squad Update</h1>
+          <p>Panel admin</p>
+        </div>
+      </div>
+      <button type="button" class="btn btn-ghost" id="btnLogout" hidden>Keluar</button>
+    </header>
+
+    <!-- Masuk -->
+    <main class="stage stage-login" id="viewLogin">
+      <form class="panel login" id="loginForm" novalidate>
+        <div class="zone">
+          <h2>Masuk ke panel admin</h2>
+          <p class="lead">Hanya admin yang bisa mengubah squad update.</p>
+          <div class="field">
+            <label for="password">Password admin</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+            <p class="field-error" id="loginError" role="alert" hidden></p>
+          </div>
+        </div>
+        <div class="zone zone-actions">
+          <span></span>
+          <button type="submit" class="btn btn-primary" id="btnLogin">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="btn-label">Masuk</span>
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <!-- Editor squad update -->
+    <main class="stage stage-editor" id="viewEditor" hidden>
+      <form class="panel editor" id="squadForm" novalidate>
+
+        <div class="zone">
+          <h2>Informasi update</h2>
+          <div class="row">
+            <div class="field">
+              <label for="name">Nama squad update</label>
+              <input id="name" name="name" type="text" maxlength="80" autocomplete="off" aria-describedby="err-name">
+              <p class="field-error" id="err-name" hidden></p>
+            </div>
+            <div class="field field-narrow">
+              <label for="version">Versi</label>
+              <input id="version" name="version" type="text" maxlength="40" autocomplete="off" aria-describedby="err-version">
+              <p class="field-error" id="err-version" hidden></p>
+            </div>
+          </div>
+
+          <div class="field field-narrow">
+            <label for="squadDate">Tanggal squad update</label>
+            <input id="squadDate" name="squadDate" type="date" min="2000-01-01" max="2100-12-31" aria-describedby="hint-date err-squadDate">
+            <p class="hint" id="hint-date">Tanggal ini tampil ke pengguna dan hanya berubah jika Anda mengubahnya di sini.</p>
+            <p class="field-error" id="err-squadDate" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="description">Deskripsi <span class="optional">(opsional)</span></label>
+            <textarea id="description" name="description" rows="3" maxlength="500" aria-describedby="err-description"></textarea>
+            <p class="hint hint-count" id="descCount">0 / 500</p>
+            <p class="field-error" id="err-description" hidden></p>
+          </div>
+        </div>
+
+        <div class="zone">
+          <h2>File unduhan</h2>
+
+          <div class="field">
+            <label for="downloadUrl">Link unduhan</label>
+            <input id="downloadUrl" name="downloadUrl" type="url" class="mono" autocomplete="off" spellcheck="false" placeholder="https://github.com/…/releases/download/…" aria-describedby="hint-url err-downloadUrl">
+            <p class="hint" id="hint-url">Pakai link aset dari GitHub Releases atau link Raw. Link halaman repository tidak bisa dipakai.</p>
+            <p class="field-error" id="err-downloadUrl" hidden></p>
+            <div class="inline-action">
+              <button type="button" class="btn btn-secondary btn-small" id="btnInspect">
+                <span class="spinner" aria-hidden="true"></span>
+                <span class="btn-label">Periksa link</span>
+              </button>
+              <span class="hint" id="inspectNote">Mengunduh file di server untuk mengisi ukuran dan checksum.</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fileName">Nama file tujuan</label>
+            <input id="fileName" name="fileName" type="text" class="mono" maxlength="100" autocomplete="off" spellcheck="false" aria-describedby="hint-file err-fileName">
+            <p class="hint" id="hint-file">Nama file yang dipasang di folder settings game.</p>
+            <p class="field-error" id="err-fileName" hidden></p>
+          </div>
+
+          <div class="row">
+            <div class="field field-narrow">
+              <label for="fileSize">Ukuran file <span class="optional">(byte)</span></label>
+              <input id="fileSize" name="fileSize" type="text" inputmode="numeric" class="mono" autocomplete="off" aria-describedby="hint-size err-fileSize">
+              <p class="hint" id="hint-size"></p>
+              <p class="field-error" id="err-fileSize" hidden></p>
+            </div>
+            <div class="field">
+              <label for="checksum">Checksum SHA-256 <span class="optional">(opsional)</span></label>
+              <input id="checksum" name="checksum" type="text" class="mono" maxlength="64" autocomplete="off" spellcheck="false" aria-describedby="err-checksum">
+              <p class="field-error" id="err-checksum" hidden></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="zone zone-switch">
+          <div class="switch-copy">
+            <label for="enabled" id="enabledLabel">Update aktif</label>
+            <p class="hint" id="enabledHint">Jika dimatikan, aplikasi tetap menampilkan info tetapi tombol Pasang tidak bisa dipakai.</p>
+          </div>
+          <input id="enabled" name="enabled" type="checkbox" role="switch" class="switch" aria-labelledby="enabledLabel" aria-describedby="enabledHint">
+        </div>
+
+        <div class="zone zone-actions">
+          <div class="status-col">
+            <p class="meta-line" id="updatedLine">Terakhir diperbarui: belum pernah disimpan</p>
+            <p class="dirty" id="dirtyLine" hidden>Ada perubahan yang belum disimpan.</p>
+            <div class="notice" id="notice" role="alert" hidden>
+              <p id="noticeText"></p>
+              <button type="button" class="btn btn-secondary btn-small" id="btnNoticeAction" hidden>Muat versi terbaru</button>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" id="btnReload">Muat Ulang</button>
+            <button type="submit" class="btn btn-primary" id="btnSave">
+              <span class="spinner" aria-hidden="true"></span>
+              <span class="btn-label">Simpan Update</span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <aside class="preview" aria-label="Tampilan di aplikasi">
+        <h2>Tampilan di aplikasi</h2>
+        <div class="preview-card">
+          <p class="p-status"><span class="dot" id="pvDot" aria-hidden="true"></span><span id="pvStatus">Tersedia</span></p>
+          <p class="p-name" id="pvName">Nama squad update</p>
+          <dl class="meta">
+            <div><dt>Versi</dt><dd id="pvVersion">–</dd></div>
+            <div><dt>Squad Update</dt><dd id="pvDate">–</dd></div>
+            <div><dt>Terakhir diperbarui</dt><dd id="pvUpdated">–</dd></div>
+          </dl>
+          <p class="p-desc" id="pvDesc" hidden></p>
+          <div class="p-button" id="pvButton" aria-hidden="true">Pasang</div>
+        </div>
+        <p class="hint">Pratinjau mengikuti isi form. Pengguna baru melihatnya setelah Anda menyimpan; aplikasi memeriksa pembaruan setiap menit.</p>
+      </aside>
+    </main>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

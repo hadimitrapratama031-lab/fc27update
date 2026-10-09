@@ -1,0 +1,18 @@
+{
+  "name": "fc27-squad-backend",
+  "version": "1.0.0",
+  "description": "Backend API FC27 Squad Update (Railway). Konfigurasi disimpan di GitHub, tanpa database.",
+  "private": true,
+  "license": "UNLICENSED",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --env-file=.env --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

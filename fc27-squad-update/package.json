@@ -1,0 +1,52 @@
+{
+  "name": "fc27-squad-update",
+  "productName": "FC27 Squad Update",
+  "version": "1.1.0",
+  "description": "Pasang squad update FC27 otomatis ke folder settings game dengan aman.",
+  "main": "main.js",
+  "private": true,
+  "author": "FC27 Squad Update",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.fc27.squadupdate",
+    "productName": "FC27 Squad Update",
+    "copyright": "FC27 Squad Update",
+    "artifactName": "FC27-Squad-Update-${version}-Portable.${ext}",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "config.json",
+      "lib/**/*",
+      "index.html",
+      "style.css",
+      "renderer.js",
+      "assets/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "compression": "normal",
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "requestedExecutionLevel": "asInvoker",
+      "signAndEditExecutable": false
+    }
+  }
+}

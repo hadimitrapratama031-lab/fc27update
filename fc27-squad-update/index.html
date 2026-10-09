@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FC27 Squad Update</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <div class="shade" aria-hidden="true"></div>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-mark" src="assets/icon.png" alt="" width="48" height="48">
+        <div>
+          <h1>FC27 Squad Update</h1>
+          <p>Pasang squad terbaru ke EA SPORTS FC 27 dengan satu klik.</p>
+        </div>
+      </div>
+      <div class="dest-chip" id="destChip" data-state="checking">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="destChipText">Memeriksa folder game</span>
+      </div>
+    </header>
+
+    <main class="stage">
+      <section class="panel" aria-label="Pasang squad update">
+
+        <div class="zone zone-file" id="drop" data-state="empty">
+          <div class="file-copy">
+            <div class="view view-online" id="viewOnline">
+              <p class="status-line" id="updStatusLine" data-state="loading"><span class="dot" aria-hidden="true"></span><span id="updStatus">Memuat info update</span></p>
+              <h2 id="updName">Squad update</h2>
+              <dl class="meta" id="updMeta" hidden>
+                <div><dt>Versi</dt><dd id="updVersion"></dd></div>
+                <div><dt>Squad Update</dt><dd id="updDate"></dd></div>
+                <div><dt>Terakhir diperbarui</dt><dd id="updAt"></dd></div>
+              </dl>
+              <p class="desc" id="updDesc" hidden></p>
+              <p class="update-note" id="updNote" hidden></p>
+              <button type="button" class="btn btn-ghost btn-refresh" id="btnRefresh">Muat Ulang</button>
+            </div>
+
+            <div class="view view-ready" id="viewReady" hidden>
+              <p class="status-line" data-state="manual"><span class="dot" aria-hidden="true"></span><span>File manual</span></p>
+              <h2 class="file-name" id="fileName" title=""></h2>
+              <dl class="meta">
+                <div><dt>Ukuran</dt><dd id="fileSize"></dd></div>
+                <div><dt>Diubah</dt><dd id="fileDate"></dd></div>
+                <div><dt>Lokasi file</dt><dd id="fileDir" class="selectable"></dd></div>
+              </dl>
+              <p class="valid"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>File lolos pemeriksaan</p>
+              <ul class="warnings" id="warnings" hidden></ul>
+              <button type="button" class="btn btn-ghost btn-refresh" id="btnBackOnline">Kembali ke update online</button>
+            </div>
+          </div>
+
+          <svg class="pitch" viewBox="0 0 600 230" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke">
+              <path d="M40 220 H560"/>
+              <path d="M117 220 V70 H483 V220"/>
+              <path d="M217 220 V170 H383 V220"/>
+              <path d="M234 70 A83 83 0 0 1 366 70"/>
+            </g>
+            <circle class="spot" cx="300" cy="120" r="4.5"/>
+          </svg>
+        </div>
+
+        <div class="zone zone-dest">
+          <div class="dest-text">
+            <h3>Folder tujuan</h3>
+            <p class="path selectable" id="destPath">Memeriksa lokasi</p>
+            <p class="dest-note" id="destNote"></p>
+          </div>
+          <button type="button" class="btn btn-ghost" id="btnOpenDest" disabled>Buka Folder</button>
+        </div>
+
+        <div class="zone zone-actions">
+          <div class="status-col" id="statusCol" data-view="hint">
+            <p class="hint" id="hint">Memuat info update.</p>
+
+            <div class="progress" id="progress" hidden>
+              <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><span id="barFill"></span></div>
+              <p id="progressText">Menyiapkan</p>
+            </div>
+
+            <div class="result" id="result" data-kind="success" role="status" aria-live="polite" hidden>
+              <span class="result-icon" aria-hidden="true">
+                <svg class="ic-success" viewBox="0 0 20 20" width="20" height="20"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 10.4l2.8 2.8L14.2 7.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="ic-error" viewBox="0 0 20 20" width="20" height="20"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 5.5v5.5M10 14.2v.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <svg class="ic-info" viewBox="0 0 20 20" width="20" height="20"><circle cx="10" cy="10" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 10h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </span>
+              <div class="result-body">
+                <p class="result-title" id="resultTitle"></p>
+                <p class="result-text" id="resultText"></p>
+                <p class="result-detail selectable" id="resultDetail" hidden></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-secondary" id="btnChoose">Pilih File Manual</button>
+            <button type="button" class="btn btn-primary" id="btnInstall" disabled>
+              <span class="spinner" aria-hidden="true"></span>
+              <span id="btnInstallLabel">Pasang</span>
+            </button>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span id="appVersion">Versi</span>
+      <span id="apiHost">Server update</span>
+    </footer>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
